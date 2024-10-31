@@ -27,15 +27,22 @@ const todo = ref({
 });
 
 const addTodo = () => {
+  todo.value.id = todolist.value.length + 1;
   todo.value.createdAt = new Date();
   todolist.value.push(todo.value);
+  addToLocalStorage();
   alert("Todo was added successfully");
   console.log(todolist.value);
   todo.value = ref({
+    id: "",
     body: "",
     deadLine: "",
     createdAt: "",
   });
+};
+
+const addToLocalStorage = () => {
+  localStorage.setItem("todos", JSON.stringify(todolist.value));
 };
 </script>
 <style lang="scss" scoped>
