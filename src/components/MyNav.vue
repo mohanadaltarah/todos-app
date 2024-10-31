@@ -22,5 +22,13 @@ ul {
   justify-content: center;
   align-items: center;
   gap: 20px;
+  background-color: #ff3300;
+  padding: 30px 0;
+
+  a {
+    color: white;
+    text-decoration: none;
+    font-size: large;
+  }
 }
 </style>
