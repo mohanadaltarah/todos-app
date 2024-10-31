@@ -17,7 +17,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 
 const todolist = ref([]);
 const todo = ref({
@@ -44,6 +44,16 @@ const addTodo = () => {
 const addToLocalStorage = () => {
   localStorage.setItem("todos", JSON.stringify(todolist.value));
 };
+
+const updateLocal = () => {
+  if (localStorage.getItem("todos")) {
+    todolist.value = JSON.parse(localStorage.getItem("todos"));
+  }
+};
+
+onMounted(() => {
+  updateLocal();
+});
 </script>
 <style lang="scss" scoped>
 form {
