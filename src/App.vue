@@ -13,6 +13,10 @@ import MyNav from "@/components/MyNav.vue";
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+
+  input[type="submit"] {
+    background-color: #051c31;
+  }
 }
 
 nav {
