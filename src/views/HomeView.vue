@@ -17,9 +17,11 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
+import { ref } from "vue";
+import todoMixin from "@/mixins/todoFunctions";
 
-const todolist = ref([]);
+const { todoList, addToLocalStorage } = todoMixin();
+
 const todo = ref({
   body: "",
   deadLine: "",
@@ -28,34 +30,21 @@ const todo = ref({
 });
 
 const addTodo = () => {
-  todo.value.id = todolist.value.length + 1;
+  todo.value.id = todoList.value.length + 1;
   todo.value.createdAt = new Date();
-  todolist.value.push(todo.value);
+  todoList.value.push(todo.value);
+
   addToLocalStorage();
+
   alert("Todo was added successfully");
-  console.log(todolist.value);
-  todo.value = ref({
+  todo.value = {
     id: "",
     body: "",
     deadLine: "",
     createdAt: "",
     isCompleted: false,
-  });
+  };
 };
-
-const addToLocalStorage = () => {
-  localStorage.setItem("todos", JSON.stringify(todolist.value));
-};
-
-const updateLocal = () => {
-  if (localStorage.getItem("todos")) {
-    todolist.value = JSON.parse(localStorage.getItem("todos"));
-  }
-};
-
-onMounted(() => {
-  updateLocal();
-});
 </script>
 <style lang="scss" scoped>
 form {

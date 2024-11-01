@@ -1,5 +1,5 @@
 <template>
-  <div v-if="todolist.length" class="show-todos">
+  <div v-if="todoList.length" class="show-todos">
     <h1>Show Todos</h1>
     <table>
       <thead>
@@ -12,7 +12,7 @@
       </thead>
       <tbody>
         <tr
-          v-for="(todo, index) in todolist"
+          v-for="(todo, index) in todoList"
           :key="todo.id"
           :style="
             todo.isCompleted
@@ -45,37 +45,20 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import todoMixin from "@/mixins/todoFunctions";
 
-const todolist = ref([]);
+const { todoList, addToLocalStorage } = todoMixin();
 
-const updateToLocal = () => {
-  if (localStorage.getItem("todos")) {
-    todolist.value = JSON.parse(localStorage.getItem("todos"));
-  }
-};
-
-// Delete a todo
+// Delete
 const deleteTodo = (index) => {
-  todolist.value.splice(index, 1);
+  todoList.value.splice(index, 1);
   addToLocalStorage();
 };
 
 const doneTask = (todo) => {
   todo.isCompleted = !todo.isCompleted;
-  // if (!todo.isCompleted) {
-  //   document.querySelector(".buttons .completed").innerHTML = "not completed";
-  // }
   addToLocalStorage();
 };
-
-const addToLocalStorage = () => {
-  localStorage.setItem("todos", JSON.stringify(todolist.value));
-};
-
-onMounted(() => {
-  updateToLocal();
-});
 </script>
 
 <style scoped>
