@@ -58,7 +58,10 @@ onMounted(() => {
   .buttons {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
     gap: 8px;
+    padding: 20px;
   }
 
   button {
@@ -66,6 +69,8 @@ onMounted(() => {
     border-radius: 5px;
     padding: 5px;
     color: white;
+    max-width: 50%;
+    cursor: pointer;
 
     &.delete {
       background-color: indianred;
