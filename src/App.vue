@@ -12,6 +12,7 @@ import MyNav from "@/components/MyNav.vue";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
+  box-sizing: border-box;
   color: #2c3e50;
 
   input[type="submit"] {

@@ -11,14 +11,14 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="todo in todolist" :key="todo.id">
+        <tr v-for="(todo, index) in todolist" :key="todo.id">
           <td>{{ todo.body }}</td>
           <td>{{ new Date(todo.createdAt).toLocaleDateString() }}</td>
           <td>{{ todo.deadLine }}</td>
           <td>
             <div class="buttons">
               <button class="completed">Completed</button>
-              <button class="delete">Delete</button>
+              <button class="delete" @click="deleteTodo(index)">Delete</button>
             </div>
           </td>
         </tr>
@@ -36,6 +36,16 @@ const updateToLocal = () => {
   if (localStorage.getItem("todos")) {
     todolist.value = JSON.parse(localStorage.getItem("todos"));
   }
+};
+
+// Delete a todo
+const deleteTodo = (index) => {
+  todolist.value.splice(index, 1);
+  addToLocalStorage();
+};
+
+const addToLocalStorage = () => {
+  localStorage.setItem("todos", JSON.stringify(todolist.value));
 };
 
 onMounted(() => {
@@ -69,16 +79,16 @@ onMounted(() => {
     border-radius: 5px;
     padding: 5px;
     color: white;
-    max-width: 50%;
+    min-width: 50%;
     cursor: pointer;
 
     &.delete {
       background-color: indianred;
     }
-  }
 
-  button.completed {
-    background-color: #42b983;
+    &.completed {
+      background-color: #42b983;
+    }
   }
 }
 </style>
