@@ -1,5 +1,5 @@
 <template>
-  <div class="show-todos">
+  <div v-if="todolist.length" class="show-todos">
     <h1>Show Todos</h1>
     <table>
       <thead>
@@ -11,19 +11,36 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(todo, index) in todolist" :key="todo.id">
+        <tr
+          v-for="(todo, index) in todolist"
+          :key="todo.id"
+          :style="
+            todo.isCompleted
+              ? 'background-color: #76a98a; color: white;'
+              : 'background-color: transparent;'
+          "
+        >
           <td>{{ todo.body }}</td>
           <td>{{ new Date(todo.createdAt).toLocaleDateString() }}</td>
           <td>{{ todo.deadLine }}</td>
           <td>
             <div class="buttons">
-              <button class="completed">Completed</button>
+              <button class="completed" @click="doneTask(todo)">
+                {{ todo.isCompleted ? "Not Done" : "Done" }}
+              </button>
               <button class="delete" @click="deleteTodo(index)">Delete</button>
             </div>
           </td>
         </tr>
       </tbody>
     </table>
+  </div>
+  <div v-else style="margin: 50vh auto">
+    <h2>No todos to show</h2>
+    <h3>
+      <router-link :to="{ name: 'Home' }">Add</router-link>
+      your first one now!
+    </h3>
   </div>
 </template>
 
@@ -41,6 +58,14 @@ const updateToLocal = () => {
 // Delete a todo
 const deleteTodo = (index) => {
   todolist.value.splice(index, 1);
+  addToLocalStorage();
+};
+
+const doneTask = (todo) => {
+  todo.isCompleted = !todo.isCompleted;
+  // if (!todo.isCompleted) {
+  //   document.querySelector(".buttons .completed").innerHTML = "not completed";
+  // }
   addToLocalStorage();
 };
 

@@ -24,6 +24,7 @@ const todo = ref({
   body: "",
   deadLine: "",
   createdAt: "",
+  isCompleted: false,
 });
 
 const addTodo = () => {
@@ -38,6 +39,7 @@ const addTodo = () => {
     body: "",
     deadLine: "",
     createdAt: "",
+    isCompleted: false,
   });
 };
 
